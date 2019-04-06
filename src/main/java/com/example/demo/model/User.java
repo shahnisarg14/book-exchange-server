@@ -8,17 +8,17 @@ public class User {
     @Id
     private String username;
     private String password;
-    private String fName;
-    private String lName;
+    private String firstName;
+    private String lastName;
     private String emailId;
     private String cellNumber;
     private boolean isAdmin = false;
 
-    public User(String username, String password, String fName, String lName, String emailId, boolean isAdmin) {
+    public User(String username, String password, String firstName, String lastName, String emailId, boolean isAdmin) {
         this.username = username;
         this.password = password;
-        this.fName = fName;
-        this.lName = lName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.emailId = emailId;
         this.isAdmin = isAdmin;
     }
@@ -48,20 +48,20 @@ public class User {
         this.password = password;
     }
 
-    public String getfName() {
-        return fName;
+    public String getfirstName() {
+        return firstName;
     }
 
-    public void setfName(String fName) {
-        this.fName = fName;
+    public void setfirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getlName() {
-        return lName;
+    public String getlastName() {
+        return lastName;
     }
 
-    public void setlName(String lName) {
-        this.lName = lName;
+    public void setlastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmailId() {
