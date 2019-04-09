@@ -37,6 +37,19 @@ public class UserService {
         return fetchedUser;
     }
 
+    @GetMapping("/api/profile/{username}")
+    public User profile(@PathVariable("username") String username,
+                        HttpServletResponse response){
+        User fetchUser = null;
+        Iterable<User> users = userRepository.findUserByUserName(username);
+        for (User user : users) {
+            fetchUser = user;
+            break;
+        }
+
+        return fetchUser;
+    }
+
 
 
 }
