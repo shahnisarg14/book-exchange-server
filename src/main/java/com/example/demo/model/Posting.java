@@ -15,7 +15,7 @@ public class Posting {
     private User user;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "isbn", referencedColumnName = "isbn")
+    @JoinColumn(name = "book_isbn", referencedColumnName = "isbn")
     private Book book;
 
     public Book getBook() {
