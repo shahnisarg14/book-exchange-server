@@ -50,6 +50,19 @@ public class UserService {
         return fetchUser;
     }
 
-
+    @PutMapping("/api/user")
+    public User updateUser(@RequestBody User newUser){
+        Iterable<User> data = userRepository.findUserByUserName(newUser.getUsername());
+        for(User user: data) {
+            user.setfirstName(newUser.getfirstName());
+            user.setlastName(newUser.getlastName());
+            user.setCellNumber(newUser.getCellNumber());
+            user.setPassword(newUser.getPassword());
+            user.setEmailId(newUser.getEmailId());
+            userRepository.save(user);
+            return user;
+        }
+        return null;
+    }
 
 }
