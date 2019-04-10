@@ -4,10 +4,7 @@ import com.example.demo.model.Posting;
 import com.example.demo.repository.PostingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "*" , allowCredentials = "true" , allowedHeaders = "*")
@@ -26,4 +23,17 @@ public class PostingService {
         }
         return  list;
     }
+
+    @GetMapping("api/my-postings/{username}")
+    public List<Posting> getAllPostingsOfUser(@PathVariable("username") String username) {
+        return postingRepository.findPostsByUserName(username);
+    }
+
+    @PostMapping("/api/my-posting")
+    public Posting createMyPosting(@RequestBody Posting newMyPosting){
+        postingRepository.save(newMyPosting);
+        return newMyPosting;
+    }
+
+
 }
