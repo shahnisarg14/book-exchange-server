@@ -46,7 +46,6 @@ public class Posting {
         return date;
     }
 
-
     public void setDate(Date date) {
         this.date = date;
     }

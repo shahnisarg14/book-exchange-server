@@ -37,6 +37,32 @@ public class UserService {
         return fetchedUser;
     }
 
+    @GetMapping("/api/profile/{username}")
+    public User profile(@PathVariable("username") String username,
+                        HttpServletResponse response){
+        User fetchUser = null;
+        Iterable<User> users = userRepository.findUserByUserName(username);
+        for (User user : users) {
+            fetchUser = user;
+            break;
+        }
 
+        return fetchUser;
+    }
+
+    @PutMapping("/api/user")
+    public User updateUser(@RequestBody User newUser){
+        Iterable<User> data = userRepository.findUserByUserName(newUser.getUsername());
+        for(User user: data) {
+            user.setfirstName(newUser.getfirstName());
+            user.setlastName(newUser.getlastName());
+            user.setCellNumber(newUser.getCellNumber());
+            user.setPassword(newUser.getPassword());
+            user.setEmailId(newUser.getEmailId());
+            userRepository.save(user);
+            return user;
+        }
+        return null;
+    }
 
 }
