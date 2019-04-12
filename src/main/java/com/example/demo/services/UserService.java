@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.spi.http.HttpExchange;
 import java.util.*;
 
 @RestController
@@ -63,6 +64,13 @@ public class UserService {
             return user;
         }
         return null;
+    }
+
+    @PostMapping("/api/logout")
+    public HttpServletResponse logout(HttpServletResponse response){
+        response.setStatus(HttpServletResponse.SC_OK);
+        return response;
+
     }
 
 }
