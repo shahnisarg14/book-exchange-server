@@ -1,10 +1,10 @@
 package com.example.demo.services;
 
-import com.example.demo.model.Book;
 import com.example.demo.model.Posting;
 import com.example.demo.repository.PostingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
 
 @RestController
