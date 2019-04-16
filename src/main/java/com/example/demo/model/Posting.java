@@ -1,4 +1,5 @@
 package com.example.demo.model;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -17,6 +18,10 @@ public class Posting {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "book_isbn", referencedColumnName = "isbn")
     private Book book;
+
+    public Posting(){
+
+    }
 
     public Book getBook() {
         return book;
