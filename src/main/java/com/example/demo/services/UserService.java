@@ -5,9 +5,9 @@ import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.spi.http.HttpExchange;
-import java.util.*;
+
 
 @RestController
 @CrossOrigin(origins = "*" , allowCredentials = "true" , allowedHeaders = "*")
@@ -17,8 +17,20 @@ public class UserService {
     UserRepository userRepository;
 
     @PostMapping("/api/register")
-    public User register(@RequestBody User user) {
-        return userRepository.save(user);
+    public User register(@RequestBody User user, HttpServletResponse response) {
+        Iterable<User> users = userRepository.findUserByUserName(user.getUsername());
+        User fetchedUser = null;
+        for (User u : users) {
+            fetchedUser = user;
+            break;
+        }
+
+        if (fetchedUser != null) {
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+            return fetchedUser;
+        } else {
+            return userRepository.save(user);
+        }
     }
 
     @PostMapping("/api/login")

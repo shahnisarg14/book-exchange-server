@@ -1,7 +1,7 @@
 package com.example.demo.services;
-
 import com.example.demo.model.Book;
 import com.example.demo.model.Posting;
+import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.PostingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +13,7 @@ public class PostingService {
 
     @Autowired
     PostingRepository postingRepository;
+    BookRepository bookRepository;
 
     @GetMapping("/api/postings")
     public List<Posting> getAllPostings() {
@@ -39,6 +40,13 @@ public class PostingService {
 
     @PostMapping("/api/my-posting")
     public Posting createMyPosting(@RequestBody Posting newMyPosting){
+        Iterable<Book> books = bookRepository.findBookByIsbn(newMyPosting.getBook().getIsbn());
+        Book fetchedBook = newMyPosting.getBook();
+        for (Book u : books) {
+            fetchedBook = u;
+            break;
+        }
+        newMyPosting.setBook(fetchedBook);
         postingRepository.save(newMyPosting);
         return newMyPosting;
     }
