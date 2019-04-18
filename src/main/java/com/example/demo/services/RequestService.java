@@ -56,12 +56,12 @@ public class RequestService {
         Iterator<Request> iterator=  requestRepository.findAll().iterator();
         List<Request> requestList = new ArrayList<>();
         while(iterator.hasNext()) {
-            if(iterator.next().getpId()==pId){
-                requestRepository.delete(iterator.next());
+            Request r = iterator.next();
+            if(r.getpId()==pId){
+                requestRepository.delete(r);
             }else{
-                requestList.add(iterator.next());
+                requestList.add(r);
             }
-
         }
         return  requestList;
     }
