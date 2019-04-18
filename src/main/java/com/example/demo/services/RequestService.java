@@ -5,6 +5,8 @@ import com.example.demo.repository.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -18,6 +20,17 @@ public class RequestService {
     @GetMapping("/api/my-requests/{username}")
     public List<Request> getAllRequestsOfUser(@PathVariable("username") String username) {
         return requestRepository.findRequestsByUserName(username);
+    }
+
+    @GetMapping("/api/requests")
+    public List<Request> getAllRequests() {
+        List<Request> requestList = new ArrayList<>();
+        Iterator<Request> iterator=  requestRepository.findAll().iterator();
+        while(iterator.hasNext()) {
+            requestList.add(iterator.next());
+        }
+        return  requestList;
+
     }
 
     @PostMapping("/api/my-request")
@@ -35,6 +48,22 @@ public class RequestService {
 
         requestRepository.save(requestToBeAdded);
         return newRequest;
+    }
+
+
+    @DeleteMapping("/api/request/{pId}")
+    public List<Request> deletePosting(@PathVariable("pId") int pId) {
+        Iterator<Request> iterator=  requestRepository.findAll().iterator();
+        List<Request> requestList = new ArrayList<>();
+        while(iterator.hasNext()) {
+            if(iterator.next().getpId()==pId){
+                requestRepository.delete(iterator.next());
+            }else{
+                requestList.add(iterator.next());
+            }
+
+        }
+        return  requestList;
     }
 
 
