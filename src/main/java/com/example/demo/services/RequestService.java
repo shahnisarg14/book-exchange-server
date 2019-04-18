@@ -22,9 +22,21 @@ public class RequestService {
 
     @PostMapping("/api/my-request")
     public Request createMyRequest(@RequestBody Request newRequest) {
-        requestRepository.save(newRequest);
+        Request requestToBeAdded =new Request();
+        if(newRequest.getDate()!=null){
+            requestToBeAdded.setDate(newRequest.getDate());
+        }
+        if(newRequest.getPosting()!=null){
+            requestToBeAdded.setpId(newRequest.getPosting().getpId());
+        }
+        if(newRequest.getUser()!=null){
+            requestToBeAdded.setUsername(newRequest.getUser().getUsername());
+        }
+
+        requestRepository.save(requestToBeAdded);
         return newRequest;
     }
+
 
 
 }
