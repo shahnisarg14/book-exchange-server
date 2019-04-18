@@ -1,5 +1,4 @@
 package com.example.demo.services;
-import com.example.demo.model.Book;
 
 import com.example.demo.model.Posting;
 import com.example.demo.repository.BookRepository;
@@ -61,7 +60,17 @@ public class PostingService {
 
     @DeleteMapping("/api/posting/{pId}")
     public List<Posting> deletePosting(@PathVariable("pId") int pId) {
-        postingRepository.deleteById(pId);
-        return getAllPostingsOfUser(getPostingById(pId).getUser().getUsername());
+
+        Iterator<Posting> iterator=  postingRepository.findAll().iterator();
+        List<Posting> list = new ArrayList<>();
+        while(iterator.hasNext()) {
+            Posting p = iterator.next();
+            if(p.getpId()==pId){
+                postingRepository.delete(p);
+            }else{
+                list.add(p);
+            }
+        }
+        return  list;
     }
 }
