@@ -42,13 +42,6 @@ public class PostingService {
 
     @PostMapping("/api/my-posting")
     public Posting createMyPosting(@RequestBody Posting newMyPosting){
-        Iterable<Book> books = bookRepository.findBookByIsbn(newMyPosting.getBook().getIsbn());
-        Book fetchedBook = newMyPosting.getBook();
-        for (Book u : books) {
-            fetchedBook = u;
-            break;
-        }
-        newMyPosting.setBook(fetchedBook);
         postingRepository.save(newMyPosting);
         return newMyPosting;
     }

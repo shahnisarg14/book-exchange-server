@@ -2,6 +2,10 @@ package com.example.demo.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Book {
@@ -15,6 +19,9 @@ public class Book {
     public Book() {
 
     }
+
+    @ManyToMany(mappedBy = "books")
+    private Set<WishList> wishlists = new HashSet<>();
 
     public int getIsbn() {
         return isbn;
