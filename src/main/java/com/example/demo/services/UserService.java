@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 
 @RestController
@@ -84,5 +87,31 @@ public class UserService {
         return response;
 
     }
+
+    @DeleteMapping("/api/user/{username}")
+    public List<User> deleteUser(@PathVariable("username") String username){
+        Iterator<User> iterator=  userRepository.findAll().iterator();
+        List<User> list = new ArrayList<>();
+        while(iterator.hasNext()) {
+            User u = iterator.next();
+            if(u.getUsername().equals(username)){
+                userRepository.delete(u);
+            }else{
+                list.add(u);
+            }
+        }
+        return  list;
+    }
+
+    @GetMapping("/api/users")
+    public List<User> getAllUsers(){
+        List<User> list = new ArrayList<>();
+        Iterable<User> users = userRepository.findAll();
+        for (User user : users) {
+            list.add(user);
+        }
+        return list;
+    }
+
 
 }
