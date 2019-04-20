@@ -52,7 +52,7 @@ public class RequestService {
 
 
     @DeleteMapping("/api/request/{pId}")
-    public List<Request> deletePosting(@PathVariable("pId") int pId) {
+    public List<Request> deleteRequest(@PathVariable("pId") int pId) {
         Iterator<Request> iterator=  requestRepository.findAll().iterator();
         List<Request> requestList = new ArrayList<>();
         while(iterator.hasNext()) {
