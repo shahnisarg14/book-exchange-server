@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "*" , allowCredentials = "true" , allowedHeaders = "*")
@@ -24,6 +21,8 @@ public class WishListService {
     private WishListRepository wishListRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private BookRepository bookRepository;
 
     @PostMapping("/api/wishlist")
     public WishList createWishlist(@RequestBody WishList wishlist){
@@ -58,6 +57,20 @@ public class WishListService {
     public Set<Book> getAllBooks(@PathVariable("wId") int wId) {
         Optional<WishList> wishlist = wishListRepository.findById(wId);
         WishList w = wishlist.get();
+        return w.getBooks();
+    }
+
+    @DeleteMapping("/api/my-wishlist/{wId}/{isbn}")
+    public Set<Book> deleteBook(@PathVariable("wId") int wId, @PathVariable("isbn") int isbn) {
+
+        Optional<Book> book = bookRepository.findById(isbn);
+        Optional<WishList> wishlist = wishListRepository.findById(wId);
+        WishList w = wishlist.get();
+        Set<Book> set = w.getBooks();
+        if (set.contains(book.get())) {
+            set.remove(book.get());
+        }
+        wishListRepository.save(w);
         return w.getBooks();
     }
 }
