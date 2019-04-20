@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.engine.internal.Cascade;
 
 import javax.persistence.*;
@@ -41,11 +43,13 @@ public class Request {
     @Id
     @ManyToOne
     @JoinColumn(name = "username",referencedColumnName = "username", insertable = false, updatable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "pId",referencedColumnName = "pId", insertable = false, updatable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Posting posting;
 
 

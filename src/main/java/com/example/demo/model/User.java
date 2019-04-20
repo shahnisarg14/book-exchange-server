@@ -1,5 +1,8 @@
 package com.example.demo.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -19,6 +22,7 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "wId", referencedColumnName = "wId")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private WishList wishList;
 
     public User(String username, String password, String firstName,

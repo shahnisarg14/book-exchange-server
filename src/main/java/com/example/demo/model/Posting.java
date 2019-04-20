@@ -1,5 +1,8 @@
 package com.example.demo.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -13,10 +16,12 @@ public class Posting {
 
     @ManyToOne
     @JoinColumn(name = "username")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "book_isbn", referencedColumnName = "isbn")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Book book;
 
     public Posting(){

@@ -1,5 +1,8 @@
 package com.example.demo.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -22,6 +25,7 @@ public class Book {
 
     }
 
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToMany(mappedBy = "books")
     private Set<WishList> wishlists = new HashSet<>();
 
