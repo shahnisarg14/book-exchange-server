@@ -1,13 +1,16 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class User {
 
     @Id
     private String username;
+    @NotNull
     private String password;
+    @NotNull
     private String firstName;
     private String lastName;
     private String emailId;
