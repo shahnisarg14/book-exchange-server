@@ -14,13 +14,19 @@ public class User {
     private String cellNumber;
     private boolean isAdmin = false;
 
-    public User(String username, String password, String firstName, String lastName, String emailId, boolean isAdmin) {
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "wId", referencedColumnName = "wId")
+    private WishList wishList;
+
+    public User(String username, String password, String firstName,
+                String lastName, String emailId, boolean isAdmin, WishList wishList) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailId = emailId;
         this.isAdmin = isAdmin;
+        this.wishList = wishList;
     }
 
     public User(String username, String password) {
@@ -86,5 +92,13 @@ public class User {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public WishList getWishList() {
+        return wishList;
+    }
+
+    public void setWishList(WishList wishList) {
+        this.wishList = wishList;
     }
 }

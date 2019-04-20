@@ -9,6 +9,7 @@ import java.util.Set;
 public class WishList {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int wId;
     private Date date;
 
@@ -23,6 +24,14 @@ public class WishList {
             inverseJoinColumns = { @JoinColumn(name = "isbn") }
     )
     Set<Book> books = new HashSet<>();
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
 
     public int getwId() {
         return wId;

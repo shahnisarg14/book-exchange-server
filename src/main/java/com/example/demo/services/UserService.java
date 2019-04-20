@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.repository.WishListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,7 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+    WishListRepository wishListRepository;
 
     @PostMapping("/api/register")
     public User register(@RequestBody User user, HttpServletResponse response) {
